@@ -13,4 +13,6 @@ class App extends Component {
   }
 }
 
+function sayHi() {}
+
 export default App;
