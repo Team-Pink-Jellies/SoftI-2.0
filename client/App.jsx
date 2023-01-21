@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import Home from './components/Home.jsx';
+
+
 
 class App extends React.Component {
   constructor(props) {
@@ -10,6 +13,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>softI</h1>
+        <Home />
       </div>
     );
   }
