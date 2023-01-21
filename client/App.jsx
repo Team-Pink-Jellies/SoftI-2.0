@@ -10,6 +10,8 @@ class App extends Component {
   }
 }
 
-function sayHi() {}
+function patrice() {
+  console.log("patrice");
+}
 
 export default App;
