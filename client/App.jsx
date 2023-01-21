@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Home from './components/Home.jsx';
 
 
+
 class App extends Component {
   render() {
     return (
@@ -12,7 +13,5 @@ class App extends Component {
     );
   }
 }
-
-function sayHi() {}
 
 export default App;
