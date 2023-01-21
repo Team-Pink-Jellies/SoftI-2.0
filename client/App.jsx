@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 
-class App extends Component {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
     return (
       <div>
@@ -8,6 +13,10 @@ class App extends Component {
       </div>
     );
   }
+}
+
+function (test) {
+  console.log(test);
 }
 
 export default App;
