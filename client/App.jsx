@@ -19,8 +19,6 @@ class App extends React.Component {
   }
 }
 
-function (test) {
-  console.log(test);
-}
+
 
 export default App;
