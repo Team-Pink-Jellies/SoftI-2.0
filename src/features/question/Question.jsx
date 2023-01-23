@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { display } from "./questionSlice";
 
-export function Question() {
+export default function Question() {
   //   console.log("state:" + state);
   //   console.log("state.question: " + state.question);
   const question = useSelector((state) => state.question.value);
@@ -12,10 +12,11 @@ export function Question() {
   //   }
 
   return (
-    <div>
-      <button onClick={() => dispatch(display("jamesBOND"))}>
-        REDUXXXXXXXXXX
-      </button>
-    </div>
+    <div id='question-box'>
+      <p>{question}</p>
+      {/* <button onClick={() => dispatch(display("jamesBOND"))}> */}
+
+
+    </div >
   );
 }
