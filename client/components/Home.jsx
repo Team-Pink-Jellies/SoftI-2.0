@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import QuestionBox from './QuestionBox';
 import { startSession } from '../redux/questionSlice';
+import MySessions from './MySessions';
 import '../styles.css';
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
       {sessionStatus ? <QuestionBox /> : <>
         <h2>Press "Start" to begin interview session.</h2>
         <button className="start-btn" onClick={() => dispatch(startSession())}>Start</button>
+        <MySessions />
       </>}
 
 

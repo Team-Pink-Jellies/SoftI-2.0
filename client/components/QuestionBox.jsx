@@ -25,10 +25,6 @@ export default function QuestionBox() {
     [setRecordedChunks]
   );
 
-  // useEffect(() => {
-  //   handleStartCaptureClick()
-  // }, [])
-
   const handleStopCaptureClick = useCallback(() => {
     mediaRecorderRef.current.stop();
     setCapturing(false);
@@ -46,20 +42,37 @@ export default function QuestionBox() {
     mediaRecorderRef.current.start();
   }, [webcamRef, setCapturing, mediaRecorderRef, handleDataAvailable]);
 
+  // const handleDownload = useCallback(() => {
+  //   if (recordedChunks.length) {
+  //     const blob = new Blob(recordedChunks, {
+  //       type: "video/webm",
+  //     });
+  //     let formData = new FormData()
+  //     formData.append("file", blob)
+  //     console.log(formData)
+  //     // fetch("http://localhost:3000/video", {
+  //     //   method: "POST",
+  //     //   body: formData
+  //     // }).then((response) => {
+  //     //   console.log("data sent")
+  //     // })
+  //   }
+  // }, [recordedChunks]);
+
   const handleDownload = useCallback(() => {
     if (recordedChunks.length) {
       const blob = new Blob(recordedChunks, {
         type: "video/webm",
       });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      document.body.appendChild(a);
-      a.style = "display: none";
-      a.href = url;
-      a.download = "react-webcam-stream-capture.webm";
-      a.click();
-      window.URL.revokeObjectURL(url);
-      setRecordedChunks([]);
+      const formData = new FormData()
+      formData.append("file", blob)
+      fetch("http://localhost:3000/video", {
+        method: "POST",
+        mode: "cors",
+        body: formData,
+      }).then((response) => {
+        console.log("data sent")
+      })
     }
   }, [recordedChunks]);
 
@@ -79,7 +92,7 @@ export default function QuestionBox() {
     <div>
       <Webcam
         height={800}
-        width={1200}
+        width={800}
         audio={false}
         mirrored={true}
         ref={webcamRef}
@@ -99,7 +112,7 @@ export default function QuestionBox() {
 
       {currentQuestion === 2 ? <>
         <button onClick={handleStopCaptureClick}>Stop Capture</button>
-        <button onClick={handleDownload}>Download</button>
+        <button onClick={handleDownload}>Upload</button>
         <button className="end-btn" onClick={() => dispatch(endSession())}> End Session</button>
       </> : <button className=" next-btn" onClick={() => dispatch(nextQuestion())}>Next Question</button>}
     </div >
