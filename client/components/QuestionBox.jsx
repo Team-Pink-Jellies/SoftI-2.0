@@ -93,7 +93,7 @@ export default function QuestionBox() {
       <Webcam
         height={800}
         width={800}
-        audio={false}
+        audio={true}
         mirrored={true}
         ref={webcamRef}
         videoConstraints={videoConstraints}
