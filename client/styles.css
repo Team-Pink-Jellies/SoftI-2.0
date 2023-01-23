@@ -126,8 +126,8 @@ body {
 
 
 /* End button*/
-
-.end-btn {
+button {
+  /* .end-btn { */
   background-color: #EA4C89;
   border-radius: 8px;
   border-style: none;
