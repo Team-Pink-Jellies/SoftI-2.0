@@ -2,10 +2,15 @@ const path = require("path");
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const videoControllers = require("./middlewares/videoControllers");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
+
+const { uploadFile, fetchFiles } = videoControllers;
 
 const corsOptions = {
   origin: "*",
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  optionsSuccessStatus: 200,
 };
 
 // allows a server to indicate any origins (domain, scheme, or port) other than its own from which a browser should permit loading resources
@@ -15,6 +20,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const PORT = 3000;
+
+
+app.post("/video", upload.single("file"), uploadFile, (req, res) => {
+  res.status(200).send("video uploaded");
+});
+
+app.get("/video", fetchFiles, (req, res) => {
+  res.status(200).send(res.locals.files);
+});
 
 // catch all other unkown routes
 app.use((req, res) => {
