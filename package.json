@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack --mode production",
     "start": "nodemon server/server.js",
-    "dev": "concurrently \"webpack serve --open --mode development\"  \"nodemon ./server/server.js\""
+    "dev": "concurrently \"webpack serve --open --mode development\"  \"nodemon ./server/server.js\"",
+    "test": "jest --verbose"
   },
   "repository": {
     "type": "git",

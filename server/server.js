@@ -5,7 +5,7 @@ const cors = require('cors');
 const videoControllers = require('./controllers/videoControllers');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
-const dbController = require('./controllers/dbControllers')
+const dbController = require('./controllers/dbControllers');
 
 const { uploadFile, fetchFiles } = videoControllers;
 
@@ -28,9 +28,9 @@ app.post('/video', upload.single('file'), uploadFile, (req, res) => {
 });
 
 app.get('/test', dbController.getRecords, (req, res) => {
-  console.log('end of testing'); 
-  res.status(200).send(res.locals.allRecords);
-})
+  console.log('end of testing');
+  res.status(200).json(res.locals.allRecords);
+});
 
 // GET request to /video endpoint
 app.get('/video', fetchFiles, (req, res) => {
