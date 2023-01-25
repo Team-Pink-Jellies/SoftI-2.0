@@ -1,15 +1,20 @@
-import React, { Component, useRef, useState, useCallback, useEffect } from 'react';
-import { useSelector, useDispatch } from "react-redux";
-import { nextQuestion, endSession } from '../redux/questionSlice';
+import React, {
+  Component,
+  useRef,
+  useState,
+  useCallback,
+  useEffect,
+} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { nextQuestion, endSession } from '../reducers/questionSlice';
 import Question from './Question';
-import Webcam from "react-webcam";
-
-
-
+import Webcam from 'react-webcam';
 
 export default function QuestionBox() {
   const dispatch = useDispatch();
-  const currentQuestion = useSelector((state) => state.question.currentQuestion);
+  const currentQuestion = useSelector(
+    (state) => state.question.currentQuestion
+  );
 
   const webcamRef = useRef(null);
   const mediaRecorderRef = useRef(null);
@@ -33,10 +38,10 @@ export default function QuestionBox() {
   const handleStartCaptureClick = useCallback(() => {
     setCapturing(true);
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
-      mimeType: "video/webm",
+      mimeType: 'video/webm',
     });
     mediaRecorderRef.current.addEventListener(
-      "dataavailable",
+      'dataavailable',
       handleDataAvailable
     );
     mediaRecorderRef.current.start();
@@ -62,25 +67,24 @@ export default function QuestionBox() {
   const handleDownload = useCallback(() => {
     if (recordedChunks.length) {
       const blob = new Blob(recordedChunks, {
-        type: "video/webm",
+        type: 'video/webm',
       });
-      const formData = new FormData()
-      formData.append("file", blob)
-      fetch("http://localhost:3000/video", {
-        method: "POST",
-        mode: "cors",
+      const formData = new FormData();
+      formData.append('file', blob);
+      fetch('http://localhost:3000/video', {
+        method: 'POST',
+        mode: 'cors',
         body: formData,
       }).then((response) => {
-        console.log("data sent")
-      })
+        console.log('data sent');
+      });
     }
   }, [recordedChunks]);
-
 
   const videoConstraints = {
     width: 1200,
     height: 800,
-    facingMode: "user",
+    facingMode: 'user',
   };
 
   // const handleDownload = () => {
@@ -110,13 +114,20 @@ export default function QuestionBox() {
 
       <Question />
 
-      {currentQuestion === 2 ? <>
-        <button onClick={handleStopCaptureClick}>Stop Capture</button>
-        <button onClick={handleDownload}>Upload</button>
-        <button className="end-btn" onClick={() => dispatch(endSession())}> End Session</button>
-      </> : <button className=" next-btn" onClick={() => dispatch(nextQuestion())}>Next Question</button>}
-    </div >
+      {currentQuestion === 2 ? (
+        <>
+          <button onClick={handleStopCaptureClick}>Stop Capture</button>
+          <button onClick={handleDownload}>Upload</button>
+          <button className='end-btn' onClick={() => dispatch(endSession())}>
+            {' '}
+            End Session
+          </button>
+        </>
+      ) : (
+        <button className=' next-btn' onClick={() => dispatch(nextQuestion())}>
+          Next Question
+        </button>
+      )}
+    </div>
   );
-
 }
-

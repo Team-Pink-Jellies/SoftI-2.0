@@ -1,15 +1,15 @@
-const path = require("path");
-const express = require("express");
+const path = require('path');
+const express = require('express');
 const app = express();
-const cors = require("cors");
-const videoControllers = require("./middlewares/videoControllers");
-const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const cors = require('cors');
+const videoControllers = require('./controllers/videoControllers');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 const { uploadFile, fetchFiles } = videoControllers;
 
 const corsOptions = {
-  origin: "*",
+  origin: '*',
   optionsSuccessStatus: 200,
 };
 
@@ -21,26 +21,27 @@ app.use(express.urlencoded({ extended: true }));
 
 const PORT = 3000;
 
-
-app.post("/video", upload.single("file"), uploadFile, (req, res) => {
-  res.status(200).send("video uploaded");
+// POST request to /video endpoint
+app.post('/video', upload.single('file'), uploadFile, (req, res) => {
+  res.status(200).send('video uploaded');
 });
 
-app.get("/video", fetchFiles, (req, res) => {
+// GET request to /video endpoint
+app.get('/video', fetchFiles, (req, res) => {
   res.status(200).send(res.locals.files);
 });
 
-// catch all other unkown routes
+// Unknown route handler
 app.use((req, res) => {
-  res.status(404).send("This is not the page you are looking for...");
+  res.status(404).send('This is not the page you are looking for...');
 });
 
 // Global error handler
 app.use((err, req, res, next) => {
   const defaultErr = {
-    log: "Express error handler caught unknown middleware error",
+    log: 'Express error handler caught unknown middleware error',
     status: 400,
-    message: { err: "An error occured" },
+    message: { err: 'An error occured' },
   };
   const errorObj = Object.assign({}, defaultErr, err);
   return res.status(errorObj.status).json(errorObj.message);

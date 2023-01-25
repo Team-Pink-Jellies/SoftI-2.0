@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 function PreviousSession() {
   const [files, setFiles] = useState([]);
@@ -7,7 +7,7 @@ function PreviousSession() {
   let records = [];
 
   useEffect(() => {
-    fetch("http://localhost:3000/video")
+    fetch('http://localhost:3000/video')
       .then((data) => data.json())
       .then((res) => {
         console.log(res);
@@ -24,9 +24,9 @@ function PreviousSession() {
 
   for (let i = 0; i <= files.length; i++) {
     if (i === 0) {
-      records.push(<option value={null}>Select a session</option>)
+      records.push(<option value={null}>Select a session</option>);
     } else {
-      records.push(<option value={i - 1}>{"Session " + i}</option>);
+      records.push(<option value={i - 1}>{'Session ' + i}</option>);
     }
   }
 
@@ -37,7 +37,7 @@ function PreviousSession() {
 
   return (
     <>
-      <video src={view} width="700" height="700" controls></video>
+      <video src={view} width='700' height='700' controls></video>
       <select onChange={(e) => handleChange(e.target.value)}>{records}</select>
       <p>test</p>
     </>

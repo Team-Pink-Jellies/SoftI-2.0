@@ -1,7 +1,7 @@
 {
   "name": "softi",
-  "version": "1.0.0",
-  "description": "interview app",
+  "version": "2.0.0",
+  "description": "An application built for aspiring software engineers to practice their interview skills.",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
@@ -12,38 +12,35 @@
     "type": "git",
     "url": "git+https://github.com/red-lipped-batfish-nyoi2/softI.git"
   },
-  "author": "Anna Justin Patrice Edward",
+  "author": "Anna Justin Patrice Edward Alex Nic Dillon Kennan",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/red-lipped-batfish-nyoi2/softI/issues"
   },
   "homepage": "https://github.com/red-lipped-batfish-nyoi2/softI#readme",
   "dependencies": {
-    "-": "^0.0.1",
     "@reduxjs/toolkit": "^1.9.1",
-    "aws-sdk": "^2.1300.0",
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "install": "^0.13.0",
     "multer": "^1.4.5-lts.1",
-    "npm": "^9.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
-    "react-webcam": "^7.0.1"
+    "react-webcam": "^7.0.1",
+    "react-router-dom": "^6.7.0"
   },
   "devDependencies": {
+    "aws-sdk": "^2.1300.0",
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
     "babel-loader": "^9.1.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "concurrently": "^6.5.1",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.3",
+    "express": "^4.18.2",
     "html-webpack-plugin": "^5.5.0",
-    "isomorphic-fetch": "^3.0.0",
     "nodemon": "^2.0.7",
-    "react-router-dom": "^6.7.0",
     "sass-loader": "^13.2.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.75.0",
