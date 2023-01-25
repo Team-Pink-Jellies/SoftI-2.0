@@ -1,6 +1,8 @@
 // This test suite will be used for testing of the backend endpoints using the 'supertest' npm package.
 
 const request = require('supertest');
+const server = 'http://localhost:3000';
+const db = require('../server/models/model');
 
 /**
  * Read the docs! https://www.npmjs.com/package/supertest
