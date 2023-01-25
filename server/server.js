@@ -2,12 +2,12 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const videoControllers = require('./controllers/videoController');
+const videoController = require('./controllers/videoController');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const dbController = require('./controllers/dbController');
 
-const { uploadFile, fetchFiles } = videoControllers;
+const { uploadFile, fetchFiles } = videoController;
 
 const corsOptions = {
   origin: '*',
