@@ -30,6 +30,7 @@ describe('Route integration', () => {
           .expect('Content-Type', /text\/html/)
           .expect(200);
       });
+
       describe('POST', () => {
         it('responds with 200 status and text/html content type', () => {
           const files = [
@@ -44,22 +45,23 @@ describe('Route integration', () => {
       });
     });
   });
-  xdescribe('/markets', () => {
+
+  describe('/markets', () => {
     describe('GET', () => {
-      xit('responds with 200 status and application/json content type', () => {});
+      it('responds with 200 status and application/json content type', () => {});
 
       // For this test, you'll need to inspect the body of the response and
       // ensure it contains the markets list. Check the markets.dev.json file
       // in the dev database to get an idea of what shape you're expecting.
-      xit('markets from "DB" json are in body of response', () => {});
+      it('markets from "DB" json are in body of response', () => {});
     });
 
-    xdescribe('PUT', () => {
-      xit('responds with 200 status and application/json content type', () => {});
+    describe('PUT', () => {
+      it('responds with 200 status and application/json content type', () => {});
 
-      xit('responds with the updated market list', () => {});
+      it('responds with the updated market list', () => {});
 
-      xit('responds to invalid request with 400 status and error message in body', () => {});
+      it('responds to invalid request with 400 status and error message in body', () => {});
     });
   });
 });
