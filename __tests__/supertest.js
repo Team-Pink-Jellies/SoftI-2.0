@@ -7,8 +7,13 @@ const db = require('../server/models/model');
 /**
  * Read the docs! https://www.npmjs.com/package/supertest
  */
+
+/**
+ * Read the docs! https://www.npmjs.com/package/supertest
+ */
 describe('Route integration', () => {
   describe('/test', () => {
+ 
     describe('GET', () => {
       // Note that we return the evaluation of `request` here! It evaluates to
       // a promise, so Jest knows not to say this test passes until that
@@ -21,22 +26,46 @@ describe('Route integration', () => {
       });
     });
   });
-  xdescribe('/markets', () => {
+  describe('/video', () => {
     describe('GET', () => {
-      xit('responds with 200 status and application/json content type', () => {});
+      it('responds with 200 status and text/html content type', () => {
+        return request(server)
+          .get('/video')
+          .expect('Content-Type', /text\/html/)
+          .expect(200);
+      });
+
+      describe('POST', () => {
+        it('responds with 200 status and text/html content type', () => {
+          const files = [
+            'https://softi-nyoi2.s3.amazonaws.com/record_.webm',
+            'https://softi-nyoi2.s3.amazonaws.com/record_.webm',
+            'https://softi-nyoi2.s3.amazonaws.com/record_.webm',
+            'https://softi-nyoi2.s3.amazonaws.com/record_.webm',
+          ];
+
+          return request(server).post('/video').send(files).expect(200);
+        });
+      });
+    });
+  });
+
+  describe('/markets', () => {
+    describe('GET', () => {
+      it('responds with 200 status and application/json content type', () => {});
 
       // For this test, you'll need to inspect the body of the response and
       // ensure it contains the markets list. Check the markets.dev.json file
       // in the dev database to get an idea of what shape you're expecting.
-      xit('markets from "DB" json are in body of response', () => {});
+      it('markets from "DB" json are in body of response', () => {});
     });
 
-    xdescribe('PUT', () => {
-      xit('responds with 200 status and application/json content type', () => {});
+    describe('PUT', () => {
+      it('responds with 200 status and application/json content type', () => {});
 
-      xit('responds with the updated market list', () => {});
+      it('responds with the updated market list', () => {});
 
-      xit('responds to invalid request with 400 status and error message in body', () => {});
+      it('responds to invalid request with 400 status and error message in body', () => {});
     });
   });
 

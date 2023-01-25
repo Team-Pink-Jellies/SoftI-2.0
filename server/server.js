@@ -2,10 +2,10 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const videoControllers = require('./controllers/videoControllers');
+const videoControllers = require('./controllers/videoController');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
-const dbController = require('./controllers/dbControllers');
+const dbController = require('./controllers/dbController');
 
 const { uploadFile, fetchFiles } = videoControllers;
 
@@ -28,7 +28,6 @@ app.post('/video', upload.single('file'), uploadFile, (req, res) => {
 });
 
 app.get('/test', dbController.getRecords, (req, res) => {
-  console.log('end of testing');
   res.status(200).json(res.locals.allRecords);
 });
 
