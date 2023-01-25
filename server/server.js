@@ -2,10 +2,10 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const videoControllers = require('./controllers/videoControllers');
+const videoControllers = require('./controllers/videoController');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
-const dbController = require('./controllers/dbControllers');
+const dbController = require('./controllers/dbController');
 
 const { uploadFile, fetchFiles } = videoControllers;
 

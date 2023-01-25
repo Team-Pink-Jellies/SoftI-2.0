@@ -8,11 +8,8 @@ const db = require('../server/models/model');
  * Read the docs! https://www.npmjs.com/package/supertest
  */
 
-/**
- * Read the docs! https://www.npmjs.com/package/supertest
- */
 describe('Route integration', () => {
-  describe('TESTING ALL', () => {
+  describe('/test', () => {
     describe('GET', () => {
       // Note that we return the evaluation of `request` here! It evaluates to
       // a promise, so Jest knows not to say this test passes until that
@@ -25,7 +22,28 @@ describe('Route integration', () => {
       });
     });
   });
+  describe('/video', () => {
+    describe('GET', () => {
+      it('responds with 200 status and text/html content type', () => {
+        return request(server)
+          .get('/video')
+          .expect('Content-Type', /text\/html/)
+          .expect(200);
+      });
+      describe('POST', () => {
+        it('responds with 200 status and text/html content type', () => {
+          const files = [
+            'https://softi-nyoi2.s3.amazonaws.com/record_.webm',
+            'https://softi-nyoi2.s3.amazonaws.com/record_.webm',
+            'https://softi-nyoi2.s3.amazonaws.com/record_.webm',
+            'https://softi-nyoi2.s3.amazonaws.com/record_.webm',
+          ];
 
+          return request(server).post('/video').send(files).expect(200);
+        });
+      });
+    });
+  });
   xdescribe('/markets', () => {
     describe('GET', () => {
       xit('responds with 200 status and application/json content type', () => {});
