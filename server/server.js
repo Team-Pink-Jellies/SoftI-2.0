@@ -27,11 +27,6 @@ app.post('/video', upload.single('file'), uploadFile, (req, res) => {
   res.status(200).send('video uploaded');
 });
 
-app.get('/test', dbController.getRecords, (req, res) => {
-  console.log('end of testing');
-  res.status(200).json(res.locals.allRecords);
-});
-
 // GET request to /video endpoint
 app.get('/video', fetchFiles, (req, res) => {
   res.status(200).send(res.locals.files);
