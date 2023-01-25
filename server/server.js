@@ -28,7 +28,6 @@ app.post('/video', upload.single('file'), uploadFile, (req, res) => {
 });
 
 app.get('/test', dbController.getRecords, (req, res) => {
-  console.log('end of testing');
   res.status(200).json(res.locals.allRecords);
 });
 
