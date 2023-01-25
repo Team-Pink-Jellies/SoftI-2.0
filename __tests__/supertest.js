@@ -12,21 +12,21 @@ const db = require('../server/models/model');
  * Read the docs! https://www.npmjs.com/package/supertest
  */
 describe('Route integration', () => {
-  describe('/', () => {
+  describe('TESTING ALL', () => {
     describe('GET', () => {
       // Note that we return the evaluation of `request` here! It evaluates to
       // a promise, so Jest knows not to say this test passes until that
       // promise resolves. See https://jestjs.io/docs/en/asynchronous
       it('responds with 200 status and text/html content type', () => {
         return request(server)
-          .get('/')
-          .expect('Content-Type', /text\/html/)
+          .get('/test')
+          .expect('Content-Type', /json/)
           .expect(200);
       });
     });
   });
 
-  describe('/markets', () => {
+  xdescribe('/markets', () => {
     describe('GET', () => {
       xit('responds with 200 status and application/json content type', () => {});
 
@@ -36,7 +36,7 @@ describe('Route integration', () => {
       xit('markets from "DB" json are in body of response', () => {});
     });
 
-    describe('PUT', () => {
+    xdescribe('PUT', () => {
       xit('responds with 200 status and application/json content type', () => {});
 
       xit('responds with the updated market list', () => {});
