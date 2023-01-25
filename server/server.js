@@ -2,12 +2,12 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const videoControllers = require('./controllers/videoController');
+const videoController = require('./controllers/videoController');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const dbController = require('./controllers/dbController');
 
-const { uploadFile, fetchFiles } = videoControllers;
+const { uploadFile, fetchFiles } = videoController;
 
 const corsOptions = {
   origin: '*',
@@ -25,10 +25,6 @@ const PORT = 3000;
 // POST request to /video endpoint
 app.post('/video', upload.single('file'), uploadFile, (req, res) => {
   res.status(200).send('video uploaded');
-});
-
-app.get('/test', dbController.getRecords, (req, res) => {
-  res.status(200).json(res.locals.allRecords);
 });
 
 // GET request to /video endpoint
