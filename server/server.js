@@ -39,7 +39,7 @@ app.get('/video', fetchFiles, (req, res) => {
 
 // Unknown route handler
 app.use((req, res) => {
-  res.status(404).send('This is not the page you are looking for...');
+  res.status(404).json('This is not the page you are looking for...');
 });
 
 // Global error handler

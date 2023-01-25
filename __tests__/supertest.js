@@ -7,12 +7,8 @@ const db = require('../server/models/model');
 /**
  * Read the docs! https://www.npmjs.com/package/supertest
  */
-
-/**
- * Read the docs! https://www.npmjs.com/package/supertest
- */
 describe('Route integration', () => {
-  describe('TESTING ALL', () => {
+  describe('/test', () => {
     describe('GET', () => {
       // Note that we return the evaluation of `request` here! It evaluates to
       // a promise, so Jest knows not to say this test passes until that
@@ -25,7 +21,6 @@ describe('Route integration', () => {
       });
     });
   });
-
   xdescribe('/markets', () => {
     describe('GET', () => {
       xit('responds with 200 status and application/json content type', () => {});
@@ -44,4 +39,27 @@ describe('Route integration', () => {
       xit('responds to invalid request with 400 status and error message in body', () => {});
     });
   });
+
+
+  describe('unknown route handler', () => {
+    describe('GET', () => {
+      it('Getting responds with status 404 and "This is not the page you are looking for..."', async () => {
+        response = await request(server).get('/nonExistentRoute').expect('Content-Type', /json/).expect(404)
+        expect(response.body).toEqual('This is not the page you are looking for...')
+      });
+    });
+    describe('PUT', () => {
+      it('Posting responds with status 404 and "This is not the page you are looking for..."', async () => {
+        response = await request(server).put('/anotherNonExistentRoute', ['test']).expect('Content-Type', /json/).expect(404)
+        expect(response.body).toEqual('This is not the page you are looking for...')
+      });
+    });
+  });
+  describe('global error handler', () => {
+    it ('gets the default error from the global error handler', async () => {
+      response = await request(server).post('/video', []).expect(200)
+      
+
+    })
+  })
 });
