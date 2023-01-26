@@ -1,39 +1,48 @@
-const path = require('path');
+// Create a new app utilizing express
 const express = require('express');
 const app = express();
+const config = require('./utils/config.js');
+const mongoose = require('mongoose');
+
 const cors = require('cors');
-const videoController = require('./controllers/videoController');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
-const dbController = require('./controllers/dbController');
 
-const { uploadFile, fetchFiles } = videoController;
+// Connect to MongoDB database utilizing mongoose-provided connect method
+mongoose
+  .connect(config.MONGODB_URI)
+  .then(() => {
+    console.log('Connected to MongoDB...');
+  })
+  .catch((error) => {
+    console.log('Error connecting to MongoDB...', error.message);
+  });
 
+// Import route files for /join, /login, and /video endpoints
+const loginRouter = require('./routes/user.js');
+const sessionsRouter = require('./routes/session.js');
+const usersRouter = require('./routes/user.js');
+
+// Configure cross-origin-resource-sharing options object
 const corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200,
 };
 
-// allows a server to indicate any origins (domain, scheme, or port) other than its own from which a browser should permit loading resources
+// Enable cross-origin-resource-sharing middleware utilizing above configuration
 app.use(cors(corsOptions));
 
+// Enable parsing of json data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const PORT = 3000;
-
-// POST request to /video endpoint
-app.post('/video', upload.single('file'), uploadFile, (req, res) => {
-  res.status(200).send('video uploaded');
-});
-
-// GET request to /video endpoint
-app.get('/video', fetchFiles, (req, res) => {
-  res.status(200).send(res.locals.videos);
-});
+// Enable routers
+app.use('/login', loginRouter);
+app.use('/video', videoRouter);
+app.use('/join', usersRouter);
 
 // Unknown route handler
-app.use((req, res) => {
+app.use('*', (req, res) => {
   res.status(404).send('This is not the page you are looking for...');
 });
 
@@ -48,6 +57,6 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-app.listen(PORT, () => {
-  console.log(`Server listening on port: ${PORT}...`);
+app.listen(config.PORT, () => {
+  console.log(`Server listening on port: ${config.PORT}...`);
 });

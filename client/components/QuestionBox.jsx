@@ -1,16 +1,10 @@
-import React, {
-  Component,
-  useRef,
-  useState,
-  useCallback,
-  useEffect,
-} from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { nextQuestion, endSession } from '../reducers/questionSlice';
 import Question from './Question';
 import Webcam from 'react-webcam';
 
-export default function QuestionBox() {
+const QuestionBox = () => {
   const dispatch = useDispatch();
   const currentQuestion = useSelector(
     (state) => state.question.currentQuestion
@@ -130,4 +124,5 @@ export default function QuestionBox() {
       )}
     </div>
   );
-}
+};
+export default QuestionBox;
