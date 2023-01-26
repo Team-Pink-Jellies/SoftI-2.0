@@ -51,7 +51,7 @@ videoControllers.fetchFiles = async (req, res, next) => {
   const params = {
     Bucket: 'softi-nyoi2',
   };
-
+  //Retrieving an array of all the videos(objects) stored in the S3 Softi bucket. Identify the array's length to get the total number of videos.
   const getNum = () => {
     return new Promise((resolve, reject) => {
       s3.listObjects(params, function (err, result) {
@@ -61,6 +61,7 @@ videoControllers.fetchFiles = async (req, res, next) => {
     });
   };
 
+  //Gets the specific video in our bucket
   const getObject = (i) => {
     const objParam = {
       Bucket: 'softi-nyoi2',
@@ -75,16 +76,16 @@ videoControllers.fetchFiles = async (req, res, next) => {
     });
   };
 
-  const num = await getNum();
+  const totalVideos = await getNum();
   let array = [];
 
-  for (let i = 1; i <= num; i++) {
-    let file = await getObject(i);
-    array.push(file);
+  for (let i = 1; i <= totalVideos; i++) {
+    let videoFile = await getObject(i);
+    array.push(videoFile);
   }
 
-  res.locals.files = array;
-  next();
+  res.locals.videos = array;
+  return next();
 };
 // get the numbers of files in the buckets
 //   await s3.listObjects(params, function (err, data) {

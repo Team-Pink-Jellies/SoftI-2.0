@@ -1,28 +1,30 @@
 import React, { useState, useEffect } from 'react';
 
 function PreviousSession() {
-  const [files, setFiles] = useState([]);
+  const [vidFiles, setVidFiles] = useState([]);
   const [view, setView] = useState(0);
 
-  let records = [];
+  useEffect(async () => {
+    //Fetch videos returned as array of objects
+    const videoList = await fetch('http://localhost:3000/video');
+    const parsedVideos = await videoList.json();
 
-  useEffect(() => {
-    fetch('http://localhost:3000/video')
-      .then((data) => data.json())
-      .then((res) => {
-        console.log(res);
-        let files = [];
-        res.forEach((f, idx) => {
-          files.push(
-            `https://softi-nyoi2.s3.amazonaws.com/record_${idx + 1}.webm`
-          );
-        });
-        setFiles(files);
-      })
-      .catch((err) => console.log(err));
+    try {
+      const videoLinks = [];
+      parsedVideos.forEach((vid, idx) => {
+        videoLinks.push(
+          `https://softi-nyoi2.s3.amazonaws.com/record_${idx + 1}.webm`,
+        );
+      });
+      setFiles(videoLinks);
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
-  for (let i = 0; i <= files.length; i++) {
+  const records = [];
+  //need to clean this up
+  for (let i = 0; i <= vidFiles.length; i++) {
     if (i === 0) {
       records.push(<option value={null}>Select a session</option>);
     } else {
@@ -31,7 +33,7 @@ function PreviousSession() {
   }
 
   const handleChange = (idx) => {
-    setView(files[idx]);
+    setView(vidFiles[idx]);
     console.log(view);
   };
 

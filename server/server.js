@@ -29,7 +29,7 @@ app.post('/video', upload.single('file'), uploadFile, (req, res) => {
 
 // GET request to /video endpoint
 app.get('/video', fetchFiles, (req, res) => {
-  res.status(200).send(res.locals.files);
+  res.status(200).send(res.locals.videos);
 });
 
 // Unknown route handler
