@@ -16,7 +16,7 @@ sessionsRouter.post(
 
 // GET request to /video endpoint
 sessionsRouter.get('/', videoController.fetchFiles, (req, res) => {
-  res.status(200).send(res.locals.files);
+  res.status(200).send(res.locals.videos);
 });
 
 // Export `sessionsRouter` for import into App.jsx

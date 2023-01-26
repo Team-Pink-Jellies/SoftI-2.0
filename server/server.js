@@ -8,7 +8,7 @@ const cors = require('cors');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 // Import route files for /join, /login, and /video endpoints
-const loginRouter = require('./routes/user.js');
+const loginRouter = require('./routes/login.js');
 const sessionsRouter = require('./routes/session.js');
 const usersRouter = require('./routes/user.js');
 
@@ -21,11 +21,6 @@ mongoose
   .catch((error) => {
     console.log('Error connecting to MongoDB...', error.message);
   });
-
-// Import route files for /join, /login, and /video endpoints
-const loginRouter = require('./routes/login.js');
-const sessionsRouter = require('./routes/session.js');
-const usersRouter = require('./routes/user.js');
 
 // Configure cross-origin-resource-sharing options object
 const corsOptions = {
