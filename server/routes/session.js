@@ -1,6 +1,8 @@
 const sessionsRouter = require('express').Router();
 const Session = require('../models/session.js');
 const videoController = require('../controllers/videoController');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 // POST request to /video endpoint
 sessionsRouter.post(
@@ -9,7 +11,7 @@ sessionsRouter.post(
   videoController.uploadFile,
   (req, res) => {
     res.status(200).send('Video uploaded.');
-  }
+  },
 );
 
 // GET request to /video endpoint

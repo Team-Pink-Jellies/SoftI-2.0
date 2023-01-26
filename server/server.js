@@ -7,6 +7,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
+// Import route files for /join, /login, and /video endpoints
+const loginRouter = require('./routes/user.js');
+const sessionsRouter = require('./routes/session.js');
+const usersRouter = require('./routes/user.js');
 
 // Connect to MongoDB database utilizing mongoose-provided connect method
 mongoose
@@ -18,11 +22,6 @@ mongoose
     console.log('Error connecting to MongoDB...', error.message);
   });
 
-// Import route files for /join, /login, and /video endpoints
-const loginRouter = require('./routes/user.js');
-const sessionsRouter = require('./routes/session.js');
-const usersRouter = require('./routes/user.js');
-
 // Configure cross-origin-resource-sharing options object
 const corsOptions = {
   origin: '*',
@@ -31,6 +30,11 @@ const corsOptions = {
 
 // Enable cross-origin-resource-sharing middleware utilizing above configuration
 app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: 'http://localhost:8080',
+  }),
+);
 
 // Enable parsing of json data
 app.use(express.json());
@@ -38,7 +42,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Enable routers
 app.use('/login', loginRouter);
-app.use('/video', videoRouter);
+app.use('/video', sessionsRouter);
 app.use('/join', usersRouter);
 
 // Unknown route handler

@@ -9,12 +9,10 @@ const bcrypt = require('bcrypt');
 
 usersRouter.post('/', async (req, res) => {
   const { username, password } = req.body;
-
   const foundUser = await User.findOne({ username });
 
   if (foundUser) {
-    res.status(400).json({ error: 'Username must be unique' });
-    return;
+    return res.status(400).json({ error: 'Username must be unique' });
   }
 
   const saltRounds = 10;
