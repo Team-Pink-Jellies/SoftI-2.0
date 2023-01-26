@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { userLogin } from '../reducers/questionSlice';
+import { userLogin } from '../reducers/userSlice';
 import '../styles.css';
-import userSlice from '../reducers/userSlice';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  // const user = useSelector((state) => state.user);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
       const loggedInUser = await dispatch(userLogin({ username, password }));
-      console.log('User could not be authenticated');
+      console.log('loggedInUser', loggedInUser);
+      console.log('User was successfully logged in.');
       navigate('/home');
     } catch (exception) {
-      console.log('User could not be authenticated');
+      console.log('User could not be authenticated:');
     }
   };
 

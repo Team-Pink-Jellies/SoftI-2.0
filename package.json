@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "start": "nodemon server/server.js",
-    "dev": "concurrently \"webpack serve --open --mode development\"  \"nodemon ./server/server.js\"",
+    "server": "nodemon server/server.js",
+    "start": "webpack serve --open --mode development",
     "test": "jest --verbose"
   },
   "repository": {

@@ -22,10 +22,17 @@ mongoose
     console.log('Error connecting to MongoDB...', error.message);
   });
 
+// Import route files for /join, /login, and /video endpoints
+const loginRouter = require('./routes/login.js');
+const sessionsRouter = require('./routes/session.js');
+const usersRouter = require('./routes/user.js');
+
 // Configure cross-origin-resource-sharing options object
 const corsOptions = {
-  origin: '*',
-  optionsSuccessStatus: 200,
+  credentials: true,
+  origin: (origin, callback) => {
+    callback(null, true);
+  },
 };
 
 // Enable cross-origin-resource-sharing middleware utilizing above configuration

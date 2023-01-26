@@ -7,7 +7,7 @@ const upload = multer({ dest: 'uploads/' });
 // POST request to /video endpoint
 sessionsRouter.post(
   '/',
-  videoController.upload.single('file'),
+  upload.single('file'),
   videoController.uploadFile,
   (req, res) => {
     res.status(200).send('Video uploaded.');
