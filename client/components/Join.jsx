@@ -18,6 +18,7 @@ const Join = () => {
     try {
       const handleNewUser = await dispatch(createUser({ username, password }));
       console.log('User was successfully created.');
+
       navigate('/home');
     } catch (exception) {
       console.log('User could not be created.');

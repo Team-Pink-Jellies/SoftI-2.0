@@ -38,12 +38,16 @@ module.exports = {
     ],
   },
   // Creates a devServer allowing for live-reload upon editing client directories/files
+  // Research if serving static file is required in devServer property of webpack configuration; if using liveReload replaces the need for this
   devServer: {
-    host: 'localhost',
     port: 8080,
-    static: {
-      directory: path.resolve(__dirname, './build'),
-      publicPath: '/',
+    liveReload: true,
+    proxy: {
+      '/paths': {
+        target: 'http://localhost:8080',
+        router: () => 'http://localhost:3000',
+        logLevel: 'debug',
+      },
     },
   },
   // Serve index.html via HtmlWebpackPlugin imported above

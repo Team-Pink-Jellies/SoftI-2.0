@@ -7,9 +7,13 @@ const bcrypt = require('bcrypt');
 //   res.json(users);
 // });
 
+// usersRouter.get('/', async (req, res) => {
+//   res.status(200).redirect('/join');
+// });
+
 usersRouter.post('/', async (req, res) => {
   const { username, password } = req.body;
-
+  console.log('username', username);
   const foundUser = await User.findOne({ username });
 
   if (foundUser) {

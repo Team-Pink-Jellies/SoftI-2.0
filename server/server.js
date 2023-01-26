@@ -5,8 +5,6 @@ const config = require('./utils/config.js');
 const mongoose = require('mongoose');
 
 const cors = require('cors');
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
 
 // Connect to MongoDB database utilizing mongoose-provided connect method
 mongoose
@@ -19,14 +17,16 @@ mongoose
   });
 
 // Import route files for /join, /login, and /video endpoints
-const loginRouter = require('./routes/user.js');
+const loginRouter = require('./routes/login.js');
 const sessionsRouter = require('./routes/session.js');
 const usersRouter = require('./routes/user.js');
 
 // Configure cross-origin-resource-sharing options object
 const corsOptions = {
-  origin: '*',
-  optionsSuccessStatus: 200,
+  credentials: true,
+  origin: (origin, callback) => {
+    callback(null, true);
+  },
 };
 
 // Enable cross-origin-resource-sharing middleware utilizing above configuration
@@ -38,7 +38,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Enable routers
 app.use('/login', loginRouter);
-app.use('/video', videoRouter);
+app.use('/video', sessionsRouter);
 app.use('/join', usersRouter);
 
 // Unknown route handler

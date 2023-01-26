@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const loginRouter = require('express').Router();
+const User = require('../models/user.js');
 
 loginRouter.post('/', async (req, res) => {
   const { username, password } = req.body;
@@ -16,8 +17,6 @@ loginRouter.post('/', async (req, res) => {
   }
 
   res.status(200).send('Successfully logged in.');
-
-  // Client should be redirected towards the /home endpoint upon successful login
 });
 
 module.exports = loginRouter;
