@@ -35,6 +35,7 @@ module.exports = {
   // sets up server that keeps track of changes and instantly bundles
   devServer: {
     host: 'localhost',
+    hot: true,
     port: 8080,
     static: {
       directory: path.resolve(__dirname, './build'),
