@@ -9,6 +9,14 @@ body {
   text-align: center;
 }
 
+/* img {
+  position: absolute;
+  top: -8vh;
+  left: -10vh;
+  width: 40vh;
+  height: 40vh;
+  background-size: contain;
+} */
 /*Styling Logo */
 .logo {
   color: #808eff;

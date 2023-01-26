@@ -1,6 +1,5 @@
 const fs = require('fs');
 const AWS = require('aws-sdk');
-
 const s3 = new AWS.S3({
   accessKeyId: 'AKIAULV76D667P5FRC7R',
   secretAccessKey: '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',
@@ -48,6 +47,7 @@ videoControllers.uploadFile = async (req, res, next) => {
 };
 
 videoControllers.fetchFiles = async (req, res, next) => {
+  console.log('beginning fetchfiles');
   const params = {
     Bucket: 'softi-nyoi2',
   };
@@ -56,6 +56,7 @@ videoControllers.fetchFiles = async (req, res, next) => {
     return new Promise((resolve, reject) => {
       s3.listObjects(params, function (err, result) {
         if (err) reject(err);
+
         if (result) resolve(result.Contents.length);
       });
     });
@@ -70,19 +71,23 @@ videoControllers.fetchFiles = async (req, res, next) => {
 
     return new Promise((resolve, reject) => {
       s3.getObject(objParam, async function (err, result) {
+        console.log('in promise');
         if (err) reject(err);
         if (result) resolve(result.Body);
       });
     });
   };
-
+  console.log('after promise; ');
+  console.log('before total videos');
   const totalVideos = await getNum();
+  console.log(totalVideos);
   let array = [];
-
+  console.log('after total videos');
   for (let i = 1; i <= totalVideos; i++) {
     let videoFile = await getObject(i);
     array.push(videoFile);
   }
+  console.log(array);
 
   res.locals.videos = array;
   return next();
