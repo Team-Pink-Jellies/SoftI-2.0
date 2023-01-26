@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Drawer from './Drawer';
 
 function PreviousSession() {
   const [videoList, setVideoList] = useState([]);
@@ -38,10 +39,11 @@ function PreviousSession() {
 
   return (
     <>
-      <video src={view} width='600' height='600' controls></video>
+      <video src={view} width='550' height='550' controls></video>
       <select onChange={(e) => handleChange(e.target.value)}>
         {vidSessions}
       </select>
+      <Drawer></Drawer>
     </>
   );
 }

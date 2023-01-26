@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Login from './components/Login.jsx';
 import './styles.css';
-import logoImage from './assets/login.png';
+// import logoImage from './assets/login.png';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Join from './components/Join.jsx';
 import Home from './components/Home.jsx';
@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div id='main'>
-      <img src={logoImage} />
+      {/* <img src={logoImage} /> */}
       <div style={hideWhenVisible}>
         <Link className='nav-link' to='/login' onClick={toggleVisibility}>
           <button>Login</button>
