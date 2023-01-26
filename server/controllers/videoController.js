@@ -7,9 +7,9 @@ const s3 = new AWS.S3({
   region: 'us-east-1',
 });
 
-const videoControllers = {};
+const videoController = {};
 
-videoControllers.uploadFile = async (req, res, next) => {
+videoController.uploadFile = async (req, res, next) => {
   if (req.file == null) {
     return res.status(400).json({ message: 'file not sent by the client' });
   }
@@ -47,7 +47,7 @@ videoControllers.uploadFile = async (req, res, next) => {
   next();
 };
 
-videoControllers.fetchFiles = async (req, res, next) => {
+videoController.fetchFiles = async (req, res, next) => {
   const params = {
     Bucket: 'softi-nyoi2',
   };
@@ -109,4 +109,4 @@ videoControllers.fetchFiles = async (req, res, next) => {
 
 // };
 
-module.exports = videoControllers;
+module.exports = videoController;

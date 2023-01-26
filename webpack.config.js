@@ -2,29 +2,34 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  // entry: path.resolve(__dirname, "./client/index.js"),
+  // The entry point for our module bundler is index.js
   entry: ['./client/index.js'],
+  // The output of our module bundler should be placed in a directory called build & the file should be named bundle.js
   output: {
     path: path.resolve(__dirname, './build'),
     filename: 'bundle.js',
   },
+  // Include source-map to allow for more accurate error tracking (reference our source-code instead of bundled source-code)
+  devtool: 'source-map',
   module: {
     rules: [
+      // Load .js/.jsx files via. Babel
       {
-        test: /.(jsx|js)$/,
+        test: /\.(jsx|js)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
-            //@babel/preset-env is a Babel preset that allows you to use the latest JavaScript features, including those from ECMAScript, without needing to specify each feature individually. It automatically determines the necessary Babel plugins based on the version of JavaScript specified in your project's .babelrc file and the current environment.
             presets: ['@babel/preset-env', '@babel/preset-react'],
           },
         },
       },
+      // Load css files via. css-loader & style-loader
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
+      // Load logo-image via. file-loader
       {
         // File loader
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
@@ -32,7 +37,7 @@ module.exports = {
       },
     ],
   },
-  // sets up server that keeps track of changes and instantly bundles
+  // Creates a devServer allowing for live-reload upon editing client directories/files
   devServer: {
     host: 'localhost',
     port: 8080,
@@ -41,13 +46,14 @@ module.exports = {
       publicPath: '/',
     },
   },
+  // Serve index.html via HtmlWebpackPlugin imported above
   plugins: [
     new HtmlWebpackPlugin({
       template: './client/index.html',
     }),
   ],
+  // Resolve all imports with no extension with .js or .jsx
   resolve: {
-    // check if css can be included here
     extensions: ['.js', '.jsx'],
   },
 };

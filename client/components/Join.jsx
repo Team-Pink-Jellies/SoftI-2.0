@@ -5,28 +5,30 @@ import { userLogin } from '../reducers/questionSlice';
 import '../styles.css';
 import userSlice from '../reducers/userSlice';
 
-const Login = () => {
+const Join = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
-  const handleLogin = async (e) => {
+  const handleJoin = async (e) => {
     e.preventDefault();
 
     try {
-      const loggedInUser = await dispatch(userLogin({ username, password }));
-      console.log('User could not be authenticated');
+      const handleNewUser = await dispatch(
+        userSlice.createUser({ username, password })
+      );
+      console.log('User was successfully created.');
       navigate('/home');
     } catch (exception) {
-      console.log('User could not be authenticated');
+      console.log('User could not be created.');
     }
   };
 
   return (
-    <form onSubmit={handleLogin}>
-      <div className='auth-login'>
+    <form onSubmit={handleJoin}>
+      <div className='auth-join'>
         <input
           type='text'
           className='username'
@@ -47,4 +49,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Join;

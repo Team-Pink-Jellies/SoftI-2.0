@@ -5,28 +5,42 @@ body {
   font-family: sans-serif;
 }
 
+/* Main div container styling */
 #main {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-/*Styling Logo */
+/* Authorization button styling*/
+.auth-join {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.auth-login {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.nav-link button {
+  margin-right: 10px;
+}
+
+.login-inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Logo styling */
 .logo {
   color: #808eff;
 }
 
-/* Login Styling */
-/* .login {
-} */
-
-.login-title {
-  /* border: solid 2px white; */
-  display: inline-block;
-}
-
-/* .login-btn {
-} */
-
-/* Home Styling */
+/* Homepage styling */
 
 .start-btn {
   align-items: center;
