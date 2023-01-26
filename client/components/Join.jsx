@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { userLogin } from '../reducers/questionSlice';
 import '../styles.css';
-import userSlice from '../reducers/userSlice';
+import { createUser } from '../reducers/userSlice';
 
 const Join = () => {
   const [username, setUsername] = useState('');
@@ -16,9 +16,7 @@ const Join = () => {
     e.preventDefault();
 
     try {
-      const handleNewUser = await dispatch(
-        userSlice.createUser({ username, password })
-      );
+      const handleNewUser = await dispatch(createUser({ username, password }));
       console.log('User was successfully created.');
       navigate('/home');
     } catch (exception) {
