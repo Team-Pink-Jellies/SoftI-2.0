@@ -22,17 +22,8 @@ function PreviousSession() {
     fetchVideoLength().catch(console.error);
   }, []);
 
-  const vidSessions = [];
-
-  for (let i = 0; i <= videoList.length; i++) {
-    if (i === 0) {
-      vidSessions.push(<option value={null}>Select a session</option>);
-    } else {
-      vidSessions.push(<option value={i - 1}>{'Session ' + i}</option>);
-    }
-  }
-
   const handleChange = (idx) => {
+    console.log(idx);
     setView(videoList[idx]);
     console.log(view);
   };
@@ -40,10 +31,7 @@ function PreviousSession() {
   return (
     <>
       <video src={view} width='550' height='550' controls></video>
-      <select onChange={(e) => handleChange(e.target.value)}>
-        {vidSessions}
-      </select>
-      <Drawer></Drawer>
+      <Drawer prevSessions={videoList} vidSelection={handleChange}></Drawer>
     </>
   );
 }

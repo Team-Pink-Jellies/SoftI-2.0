@@ -41,7 +41,7 @@ module.exports = {
   // Research if serving static file is required in devServer property of webpack configuration; if using liveReload replaces the need for this
   devServer: {
     port: 8080,
-    liveReload: true,
+    hot: true,
     proxy: {
       '/paths': {
         target: 'http://localhost:8080',

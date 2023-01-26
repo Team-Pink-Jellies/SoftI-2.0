@@ -18,7 +18,6 @@ export default function Home() {
         <QuestionBox />
       ) : (
         <>
-          <h2>Press "Start" to begin interview session.</h2>
           <button
             className='start-btn'
             onClick={() => dispatch(startSession())}

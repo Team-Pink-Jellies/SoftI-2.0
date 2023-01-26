@@ -1,8 +1,7 @@
-import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import React, { useState } from 'react';
+import { styled, useTheme, createTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
 import { AppBar as MuiAppBar } from '@mui/material/';
 import Toolbar from '@mui/material/Toolbar';
 import { List } from '@mui/material';
@@ -15,9 +14,9 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { red } from 'material-ui-colors';
 
 const drawerWidth = 240;
+const drawerBackground = 'rgba(0, 0, 0, 0.80)';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -38,9 +37,20 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   }),
 );
 
+const customTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#808080',
+    },
+  },
+});
+
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
+  color: theme.palette.primary.contrastText,
+  backgroundColor: 'rgba(0, 0, 0, 0.80)',
+  fontSize: '10',
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -57,6 +67,7 @@ const AppBar = styled(MuiAppBar, {
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
+  backgroundColor: '#rgba(5, 0, 5, 0.85)',
   alignItems: 'center',
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
@@ -64,21 +75,19 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft({ prevSessions, vidSelection }) {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
   const handleDrawerClose = () => {
     setOpen(false);
   };
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
       <AppBar position='fixed' open={open}>
         <Toolbar>
           <IconButton
@@ -90,8 +99,8 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant='h6' noWrap component='div'>
-            Drawer Title
+          <Typography variant='h6' fontSize='12' noWrap component='div'>
+            Previous Sessions
           </Typography>
         </Toolbar>
       </AppBar>
@@ -102,6 +111,8 @@ export default function PersistentDrawerLeft() {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
+            backgroundColor: 'rgba(17, 16, 17, 0.85)',
+            color: 'white',
           },
         }}
         variant='persistent'
@@ -111,20 +122,44 @@ export default function PersistentDrawerLeft() {
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? (
-              <ChevronLeftIcon />
+              <ChevronLeftIcon
+                sx={{
+                  color: 'white',
+                }}
+              />
             ) : (
-              <ChevronRightIcon />
+              <ChevronRightIcon
+                sx={{
+                  color: 'white',
+                }}
+              />
             )}
           </IconButton>
         </DrawerHeader>
-        <Divider />
+        <Divider
+          sx={{
+            backgroundColor: 'white',
+          }}
+        />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
+          {prevSessions.map((vid, index) => (
+            <>
+              <ListItem
+                value={index}
+                onClick={(e) => vidSelection(index)}
+                key={'session' + index.toString()}
+                disablePadding
+              >
+                <ListItemButton>
+                  <ListItemText primary={'Session ' + index.toString()} />
+                </ListItemButton>
+              </ListItem>
+              <Divider
+                sx={{
+                  backgroundColor: 'white',
+                }}
+              />
+            </>
           ))}
         </List>
       </Drawer>
