@@ -87,27 +87,5 @@ videoControllers.fetchFiles = async (req, res, next) => {
   res.locals.files = array;
   next();
 };
-// get the numbers of files in the buckets
-//   await s3.listObjects(params, function (err, data) {
-//     if (err) throw err;
-//     const num = data.Contents.length;
-//     const files = [];
-
-// for (let i = 1; i <= num; i++) {
-//   const objParam = {
-//     Bucket: "softi-nyoi2",
-//     Key: "record_" + i + ".webm",
-//   };
-//   s3.getObject(objParam, async function (err, data) {
-//     if (err) throw err;
-//     const file = await data.Body;
-//     files.push(file);
-//   });
-// }
-
-// console.log(files);
-//   });
-
-// };
 
 module.exports = videoControllers;
