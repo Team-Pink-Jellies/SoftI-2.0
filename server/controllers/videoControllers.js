@@ -1,10 +1,11 @@
 const fs = require('fs');
 const AWS = require('aws-sdk');
+require('dotenv').config();
 
 const s3 = new AWS.S3({
-  accessKeyId: 'AKIAULV76D667P5FRC7R',
-  secretAccessKey: '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',
-  region: 'us-east-1',
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_KEY,
+  region: process.env.AWS_REGION,
 });
 
 const videoControllers = {};
@@ -16,7 +17,7 @@ videoControllers.uploadFile = async (req, res, next) => {
   // console.log(req.file)
   const getNum = () => {
     return new Promise((resolve, reject) => {
-      s3.listObjects({ Bucket: 'softi-nyoi2' }, function (err, result) {
+      s3.listObjects({ Bucket: process.env.S3_BUCKET_NAME }, function (err, result) {
         if (err) reject(err);
         if (result) resolve(result.Contents.length);
       });
@@ -30,7 +31,7 @@ videoControllers.uploadFile = async (req, res, next) => {
   file.originalname = `${req.query.title}_${req.query.image}.webm`;
   const fileStream = fs.createReadStream(file.path);
   const params = {
-    Bucket: 'softi-nyoi2',
+    Bucket: process.env.S3_BUCKET_NAME,
     Key: `record_${num}.webm`,
     Body: fileStream,
   };
@@ -49,7 +50,7 @@ videoControllers.uploadFile = async (req, res, next) => {
 
 videoControllers.fetchFiles = async (req, res, next) => {
   const params = {
-    Bucket: 'softi-nyoi2',
+    Bucket: process.env.S3_BUCKET_NAME,
   };
 
   const getNum = () => {
@@ -63,7 +64,7 @@ videoControllers.fetchFiles = async (req, res, next) => {
 
   const getObject = (i) => {
     const objParam = {
-      Bucket: 'softi-nyoi2',
+      Bucket: process.env.S3_BUCKET_NAME,
       Key: 'record_' + i + '.webm',
     };
 
